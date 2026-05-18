@@ -64,11 +64,11 @@ class GitLabService(
             # Check if protocol is already included
             if base_domain.startswith(('http://', 'https://')):
                 # Use the provided protocol
-                self.BASE_URL = f'{base_domain}/api/v4'
+                self.BASE_URL = f'{base_domain}/api/v3'
                 self.GRAPHQL_URL = f'{base_domain}/api/graphql'
             else:
                 # Default to https if no protocol specified
-                self.BASE_URL = f'https://{base_domain}/api/v4'
+                self.BASE_URL = f'https://{base_domain}/api/v3'
                 self.GRAPHQL_URL = f'https://{base_domain}/api/graphql'
 
     @property
