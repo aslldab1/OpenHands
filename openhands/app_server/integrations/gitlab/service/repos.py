@@ -28,9 +28,9 @@ class GitLabReposMixin(GitLabMixinBase):
         return Repository(
             id=str(repo.get('id')),  # type: ignore[arg-type]
             full_name=repo.get('path_with_namespace'),  # type: ignore[arg-type]
-            stargazers_count=repo.get('star_count'),
+            stargazers_count=repo.get('star_count', 0),
             git_provider=ProviderType.GITLAB,
-            is_public=repo.get('visibility') == 'public',
+            is_public=repo.get('visibility_level', 0) >= 20 or repo.get('visibility') == 'public',
             owner_type=(
                 OwnerType.ORGANIZATION
                 if repo.get('namespace', {}).get('kind') == 'group'

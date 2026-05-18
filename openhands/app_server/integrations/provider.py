@@ -552,8 +552,10 @@ class ProviderHandler:
             if git_token:
                 token_value = git_token.get_secret_value()
                 if provider == ProviderType.GITLAB:
+                    # Use username:token for self-hosted GitLab (e.g. AoneCode)
+                    git_user = self.provider_tokens[provider].user_id or 'oauth2'
                     remote_url = (
-                        f'{protocol}://oauth2:{token_value}@{domain}/{repo_name}.git'
+                        f'{protocol}://{git_user}:{token_value}@{domain}/{repo_name}.git'
                     )
                 elif provider == ProviderType.BITBUCKET:
                     # For Bitbucket, handle email:api_token format
